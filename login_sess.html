@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<title>LOGIN PAGE</title>
+		<meta charset="utf-8">
+		<style>
+</style>
+	</head>
+	<body>
+		
+		<div style="background-color:#5174AD;width:1000px;margin:0px auto;height:20%">
+		</div>
+		<div style="background-color:#E6EBF4;margin:0px auto;width:1000px;height:37%;padding-top:12%;color:#0D2F66">
+			helloooo
+			<form method="post" action="login_sess.php">
+		
+				<table style="margin:0px auto;align:center;color:blue">
+					<tr>
+					<td>USER </td><td><input type="text" name="t1"/></td>
+					</tr>
+					<tr>
+					<td>PASSWORD</td><td><input type="password" name="t2"/></td>
+					</tr>
+				</table>
+				<div style="text-align:center"><input type="submit" align="center" name="btn" value="LOG IN"/></div>
+			</form>
+		</div>
+		
+<?php
+	if(isset($_POST["btn"]))
+	{
+		$user=$_POST["t1"];
+		$pass=$_POST["t2"];	
+		session_start();	
+		include("dbconnectnotice.php");
+		$sql="select * from students where ID='" . $user . "' and pass='". $pass . "'";
+		$rs=mysqli_query($con,$sql);
+		$row=mysqli_fetch_array($rs);
+		if($row)
+		{
+			$_SESSION["user"]=$user;
+			$_SESSION["pass"]=$pass;
+			header("location:home.php");
+		}	
+		else
+			echo "invalid userid/password";
+	}
+?>
+<div style="background-color:#5174AD;align:bottom;width:1000px;margin:0px auto;height:20%">
+		</div>
+	</body>
+</html>
